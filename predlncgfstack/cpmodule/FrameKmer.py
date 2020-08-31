@@ -9,7 +9,7 @@ from collections import Counter
 import re
 import itertools
 
-from predlncgfstack.cpmodule import ireader
+from .ireader import *
 
 
 def word_generator(seq, word_size, step_size, frame=0):
@@ -25,7 +25,7 @@ def seq_generator(fastafile):
     tmpseq = ''
     name = ''
     DNA_pat = re.compile(r'^[ACGTN]+$')
-    for line in ireader.reader(fastafile):
+    for line in reader(fastafile):
         line = line.strip().upper()
         if line.startswith(('#', ' ', '\n')): continue
         if line.startswith(('>', '@')):
