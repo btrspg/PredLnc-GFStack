@@ -2,14 +2,12 @@
 '''deal with Kmer. DNA sequence should only A, C, G, T. python2.7 or newer'''
 
 # import built-in modules
-import os, sys
-import numpy
 import math
 from collections import Counter
 import re
 import itertools
 
-from .ireader import *
+from predlncgfstack.ireader import *
 
 
 def word_generator(seq, word_size, step_size, frame=0):

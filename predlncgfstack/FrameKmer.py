@@ -7,7 +7,7 @@ import math
 import re
 from collections import Counter
 
-from .cpmodule import ireader
+from . import ireader
 
 
 def word_generator(seq, word_size, step_size, frame=0):
