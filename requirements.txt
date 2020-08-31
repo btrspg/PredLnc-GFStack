@@ -2,4 +2,6 @@ Bio
 Biopython
 scikit-learn
 joblib
+numpy
+pandas
 bx-python
