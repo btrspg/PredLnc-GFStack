@@ -2,22 +2,19 @@
 import numpy as np
 import pandas as pd
 import os
-import random
-import time
+
 from argparse import ArgumentParser
 from Bio import SeqIO
 from predlncgfstack import ProtParam as PP
 from predlncgfstack import fickett
 from predlncgfstack import FrameKmer
 from predlncgfstack import Get_ORF_features as orf
-from Bio.SeqUtils import ProtParam
 from Bio.SeqUtils import GC
 from predlncgfstack.CTD import CTD
 from predlncgfstack.SNR import SNR
 from predlncgfstack.LncADeepGetFeature import LncADeepGetFeature
-from sklearn.ensemble import RandomForestClassifier
 from predlncgfstack.utils import get_resource
-import joblib
+from sklearn.externals import joblib
 import warnings
 
 warnings.filterwarnings('ignore')

@@ -2,14 +2,12 @@
 '''deal with Kmer. DNA sequence should only A, C, G, T. python2.7 or newer'''
 
 # import built-in modules
-import os, sys
-import numpy
 import math
 from collections import Counter
 import re
 import itertools
 
-from predlncgfstack.cpmodule import ireader
+from predlncgfstack.ireader import *
 
 
 def word_generator(seq, word_size, step_size, frame=0):
@@ -25,7 +23,7 @@ def seq_generator(fastafile):
     tmpseq = ''
     name = ''
     DNA_pat = re.compile(r'^[ACGTN]+$')
-    for line in ireader.reader(fastafile):
+    for line in reader(fastafile):
         line = line.strip().upper()
         if line.startswith(('#', ' ', '\n')): continue
         if line.startswith(('>', '@')):

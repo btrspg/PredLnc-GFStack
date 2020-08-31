@@ -10,7 +10,9 @@ RUN apt update && apt install -y $depends
 WORKDIR /opt/tmp/
 ADD . ./
 RUN pip3 install -r requirements.txt && \
-    pip3 install .
+    pip3 install . && \
+    cp src/txCdsPredict /usr/local/bin/ && \
+    chmod +x /usr/local/bin/*
 
 
 
