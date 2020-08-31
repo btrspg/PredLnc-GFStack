@@ -26,5 +26,5 @@ jobs:
         docker push $IMAGE_ID:$VERSION
     - name: TEST
       run: |
-        docker run -v `pwd`:`pwd` -w `pwd` newbuild bash -c "PredLnc-GFStack.py --input tests/test.fasta --model human -o Human_coding.result "
+        docker run -v `pwd`:`pwd` -w `pwd` newbuild bash -c "PredLnc-GFStack.py --input tests/test.fasta --model human --output Human_coding.result "
         head Human_coding.result
