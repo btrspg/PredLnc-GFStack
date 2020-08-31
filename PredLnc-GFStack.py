@@ -29,7 +29,7 @@ def main():
                     ' Liu et al (2019).')
     group = parser.add_argument_group("Method Paramenters")
     group.add_argument('--input', nargs=1, dest='input', type=str, help="input sequence in fasta format(required)")
-    group.add_argument('--model', nargs=1, dest='model', type=str, help="use [human] model or [mouse] model")
+    group.add_argument('--model', nargs=1, dest='model', choices=['human','mouse'],type=str, help="use [human] model or [mouse] model")
     group.add_argument('--output', nargs=1, dest='output', type=str, help="output file format like [Sequence Class]")
     args = parser.parse_args()
 
