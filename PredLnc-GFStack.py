@@ -14,7 +14,7 @@ from predlncgfstack.CTD import CTD
 from predlncgfstack.SNR import SNR
 from predlncgfstack.LncADeepGetFeature import LncADeepGetFeature
 from predlncgfstack.utils import get_resource
-import joblib
+from sklearn.externals import joblib
 import warnings
 
 warnings.filterwarnings('ignore')
