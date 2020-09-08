@@ -9,7 +9,7 @@ setup(
     scripts=scripts,
     license='',
     include_package_data=True,
-    package_data={'': ['Human_model/*', 'Mouse_model/*']},
+    package_data={'': ['Human_model/*', 'Mouse_model/*','bin/*']},
     author='CHEN Yuelong',
     author_email='yuelong.chen.btr@gmail.com',
     description='''

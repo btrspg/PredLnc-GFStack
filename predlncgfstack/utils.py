@@ -9,5 +9,9 @@ def get_resource(species='Human'):
     return pkg_resources.resource_filename(__name__, '{species}_model/'.format(species=species))
 
 
+def get_txcdspredict():
+    return pkg_resources.resource_filename(__name__, 'bin/txCdsPredict')
+
+
 def eprint(*args, **kwargs):
     print(*args, file=sys.stderr, **kwargs)
