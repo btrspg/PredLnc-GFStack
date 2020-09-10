@@ -1,21 +1,23 @@
 #! /usr/bin/env python3
+import os
+import stat
+import warnings
+from argparse import ArgumentParser
+
 import numpy as np
 import pandas as pd
-import os
-
-from argparse import ArgumentParser
 from Bio import SeqIO
-from predlncgfstack import ProtParam as PP
-from predlncgfstack import fickett
+from Bio.SeqUtils import GC
+from sklearn.externals import joblib
+
 from predlncgfstack import FrameKmer
 from predlncgfstack import Get_ORF_features as orf
-from Bio.SeqUtils import GC
+from predlncgfstack import ProtParam as PP
+from predlncgfstack import fickett
 from predlncgfstack.CTD import CTD
-from predlncgfstack.SNR import SNR
 from predlncgfstack.LncADeepGetFeature import LncADeepGetFeature
-from predlncgfstack.utils import get_resource
-from sklearn.externals import joblib
-import warnings
+from predlncgfstack.SNR import SNR
+from predlncgfstack.utils import get_resource, get_txcdspredict
 
 warnings.filterwarnings('ignore')
 
@@ -26,7 +28,8 @@ def main():
                     ' Liu et al (2019).')
     group = parser.add_argument_group("Method Paramenters")
     group.add_argument('--input', nargs=1, dest='input', type=str, help="input sequence in fasta format(required)")
-    group.add_argument('--model', nargs=1, dest='model', choices=['human','mouse'],type=str, help="use [human] model or [mouse] model")
+    group.add_argument('--model', nargs=1, dest='model', choices=['human', 'mouse'], type=str,
+                       help="use [human] model or [mouse] model")
     group.add_argument('--output', nargs=1, dest='output', type=str, help="output file format like [Sequence Class]")
     args = parser.parse_args()
 
@@ -151,7 +154,7 @@ def get_sequence_features(input_file, model):
         hex_file = get_resource('Human') + '/Human_features_Hexamer.tsv'
         # hex_file = "predlncgfstack/Human_model/Human_features_Hexamer.tsv"
     else:
-        raise ValueError('model can only be mouse or human, not'+str(model))
+        raise ValueError('model can only be mouse or human, not' + str(model))
     coding, noncoding = coding_nocoding_potential(hex_file)
     hexamer, Instability_index, pI, Gravy, fickett_score, \
     STOP_Codon_Count, STOP_Codon_Frequency, PI_Mw, Mw, \
@@ -197,7 +200,10 @@ def get_special_features(input_file, transcript_length):
 
     for seq in SeqIO.parse(input_file, 'fasta'):
         SeqIO.write(seq, tmp_fa, "fasta")
-        os.system("txCdsPredict " + tmp_fa + " " + tmp_cds)
+        txcdspredict = get_txcdspredict()
+        os.chmod(txcdspredict, stat.S_IXOTH)
+
+        os.system(txcdspredict + " " + tmp_fa + " " + tmp_cds)
         if (os.path.getsize(tmp_cds)) == 0:
             CDS_length.append(0)
             txCdsPredict_score.append(0)
@@ -263,7 +269,7 @@ def predict(model):
     elif model == 'human':
         temp = get_resource('Human')
     else:
-        raise ValueError('model can only be mouse or human, not'+str(model))
+        raise ValueError('model can only be mouse or human, not' + str(model))
 
     filename = temp + model + "_selected_features.csv"
     with open(filename, 'r') as f:
