@@ -201,7 +201,7 @@ def get_special_features(input_file, transcript_length):
     for seq in SeqIO.parse(input_file, 'fasta'):
         SeqIO.write(seq, tmp_fa, "fasta")
         txcdspredict = get_txcdspredict()
-        os.chmod(txcdspredict, stat.S_IXOTH)
+        # os.chmod(txcdspredict, stat.S_IXOTH)
 
         os.system(txcdspredict + " " + tmp_fa + " " + tmp_cds)
         if (os.path.getsize(tmp_cds)) == 0:
